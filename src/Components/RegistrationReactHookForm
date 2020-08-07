@@ -1,0 +1,40 @@
+import React from "react";
+import {useForm} from "react-hook-form";
+
+const RegistrationReactHookForm = () => {
+    const {register, handleSubmit} = useForm();
+
+    const onSubmit = (data) => {
+      console.log(data);
+    };
+
+    return(
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <label htmlFor="login">
+                <input id="login" name="login" type="text" className="" ref={register({required: true})}/>
+            </label>
+            <label htmlFor="email">
+                <input id="email" name="email" type="text" className="" ref={register({required: true})}/>
+            </label>
+            <label htmlFor="password">
+                <input id="password" name="password" type="password" className="" ref={register({required: true, minLength: 4})}/>
+            </label>
+            <label htmlFor="c_password">
+                <input id="c_password" name="c_password" type="password" className="" ref={register({required:true})}/>
+            </label>
+            <label htmlFor="name1">
+                <input id="name1" name="name1" type="text" className="" ref={register({required: true, minLength: 3})}/>
+            </label>
+            <label htmlFor="phone">
+                <input id="phone" name="phone" type="text" className="" ref={register({required:true, pattern: /^((\+7|7|8)+([0-9]){10})$/gm})}/>
+            </label>
+            <label htmlFor="birthday">
+                <input id="birthday" name="birthday" type="date" className="" ref={register({required:true})}/>
+            </label>
+        </form>
+      </div>
+  )
+};
+
+export default RegistrationReactHookForm;
