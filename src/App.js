@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import LoginFormReactHook from "./Components/LoginReactHookForm";
-import RegistrationReactHookForm from "./Components/RegistrationReactHookForm";
+import LogAndReg from "./Components/LogAndReg";
 
 function App() {
   return (
     <div>
-      <LoginFormReactHook/>
+      <LogAndReg/>
     </div>
   );
 }

@@ -6,7 +6,7 @@ body {
     background: #eceffc;
 }
 
-.login-form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,13 +21,13 @@ body {
     0 12px 12px rgba(128, 128, 128, 0.35);
 }
 
-.login-input{
+.input{
     border-radius: 10px;
     height: 30px;
 }
 
 
-.login-btn {
+.btn {
     margin-top: 10px;
     width: 100px;
     height: 35px;
@@ -38,7 +38,7 @@ body {
     transition-duration: .4s;
 }
 
-.login-btn:hover{
+.btn:hover{
     background-color: #555555;
     color: white;
 }
