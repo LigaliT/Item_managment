@@ -1,16 +1,30 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
-import "../Styles/LoginAndRegStyles.css"
-import Requests from "../Requests";
+import "../../Styles/LoginAndRegStyles.css"
+import Requests from "../../Requests";
+
 
 const RegistrationReactHookForm = () => {
     const {register, errors, handleSubmit, watch} = useForm();
+    const [error, setError] = useState("");
     const password = useRef({});
     password.current = watch("password", "");
     const onSubmit = (data) => {
       console.log(data);
       Requests.logCreate("/register", data).then((result) => {
-          console.log(result);
+          switch (result.data) {
+              case "User is already exist": {
+                  setError("User is already exist");
+                  break;
+              }
+              default : {
+                  localStorage.setItem("token", result.data.token);
+                  window.location.href = "/main";
+              }
+          }
+          setTimeout(() => {
+              setError("")
+          }, 5000);
       })
     };
 
@@ -35,7 +49,6 @@ const RegistrationReactHookForm = () => {
             <input id="passwordRepeat" name="passwordRepeat" type="password" className="input" ref={register({
                 validate: (value) => value === password.current || "The password don't match"
             })}/>
-            {errors.passwordRepeat && <p>{errors.passwordRepeat.message}</p>}
             <label htmlFor="name">
                 Name
             </label>
@@ -48,6 +61,8 @@ const RegistrationReactHookForm = () => {
                 Date of birthday
             </label>
             <input id="birthday" name="birthday" type="date" className="input" ref={register({required:true})}/>
+            {<p style={{color : "red"}}>{error}</p>}
+            {errors.passwordRepeat && <p>{errors.passwordRepeat.message}</p>}
             <button type="submit" className="btn">
                 Sign Up
             </button>

@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import LoginFormReactHook from "./LoginReactHookForm";
 import RegistrationReactHookForm from "./RegistrationReactHookForm";
-import "../Styles/LoginAndRegStyles.css"
+import "../../Styles/LoginAndRegStyles.css"
 
 const LogAndReg = () => {
     const [show, setShow] = useState(1);
@@ -19,7 +19,7 @@ const LogAndReg = () => {
                     Sign up
                 </button>
             </div>
-                {show && <LoginFormReactHook/> || !show && <RegistrationReactHookForm/>}
+                {(show && <LoginFormReactHook/> )|| (!show && <RegistrationReactHookForm/>)}
         </div>)
 };
 

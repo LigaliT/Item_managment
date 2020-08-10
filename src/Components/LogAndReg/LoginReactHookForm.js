@@ -1,15 +1,31 @@
-import React from "react";
+import React,{useState} from "react";
 import {useForm} from "react-hook-form";
-import "../Styles/LoginAndRegStyles.css"
-import Requests from "../Requests";
+import "../../Styles/LoginAndRegStyles.css"
+import Requests from "../../Requests";
 
 
 const LoginFormReactHook = () => {
     const {register, handleSubmit} = useForm();
-
+    const [error, setError] = useState("");
     const onSubmit = (data) => {
         Requests.logCreate("/login", data).then((result) => {
-            console.log(result);
+            switch (result.data) {
+                case "Incorrect password" : {
+                    setError("Incorrect password");
+                    break;
+                }
+                case "User doesn't exist" : {
+                    setError("User doesn't exist");
+                    break;
+                }
+                default:
+                    localStorage.setItem("token",result.data.token);
+                    window.location.href = "/main";
+                    break;
+            }
+            setTimeout(() => {
+                setError("");
+            }, 5000)
         })
     };
     return(
@@ -19,6 +35,7 @@ const LoginFormReactHook = () => {
                 <input ref={register({required : true, maxLength: 20})} id="login" name="login" type="text" className="input"/>
                 <label htmlFor="password">Password</label>
                 <input ref={register({required: true, maxLength: 20})} id="password" name="password" type="password" className="input"/>
+                {<p style={{color : "red"}}>{error}</p>}
                 <button type="submit" className="btn">Sign In</button>
             </form>
         </div>
